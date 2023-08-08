@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Navbar from "./Components/navbar";
+import Footer from "./Components/footer";
+import About from "./Components/about";
+import Contact from "./Components/contact";
+import {Routes, Route} from "react-router-dom";
+import Home from "./Components/houses";
+import Login from "./Components/login";
+import UserHome from "./Components/userHome";
+import HouseDetails from "./Components/houseDetails";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export default function App() {
+    return (
+        <div>
+            <Navbar />
+            <Routes>
+                <Route path='/' element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="contact" element={<Contact />} />
+                <Route path="login" element={<Login />} />
+                <Route path="*" element={<div className="error-page"><h1> 404 Not Found</h1></div>} />
+                <Route path="user" element={<UserHome />} />
+                <Route path="house/:houseId" component={<HouseDetails />} />
+            </Routes>
+            <Footer />
+        </div>
+    )
 }
-
-export default App;

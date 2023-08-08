@@ -1,0 +1,21 @@
+/* Home.css */
+
+.home-container {
+    padding: 20px;
+  }
+  
+  /* Add margin to the buttons */
+  .home-buttons {
+    display: flex;
+    padding-right: 10px; /* Gap between the buttons */
+    margin-bottom: 20px; /* Space between buttons and the content below */
+  }
+  
+  .booking-card {
+    margin-bottom: 10px;
+  }
+  
+  .house-card {
+    margin-bottom: 10px;
+  }
+  
