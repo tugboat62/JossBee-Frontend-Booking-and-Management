@@ -22,7 +22,8 @@ export default function App() {
                 <Route path="login" element={<Login />} />
                 <Route path="*" element={<div className="error-page"><h1> 404 Not Found</h1></div>} />
                 <Route path="user" element={<UserHome />} />
-                <Route path="house/:houseId" component={<HouseDetails />} />
+                <Route path="house/:houseId" element={<HouseDetails />} exact/>
+                {/* <Route path="/house/:houseId">element={<HouseDetails />}</Route> */}
             </Routes>
             <Footer />
         </div>

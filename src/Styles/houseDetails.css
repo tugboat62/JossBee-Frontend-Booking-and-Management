@@ -1,9 +1,56 @@
 /* HouseDetails.css */
 
-.house-details {
+  /* Add more styling as needed */
+  .house-details {
     min-height: 100vh;
+    max-width: 800px;
+    margin: 0 auto;
     padding: 20px;
+    color: #666;
   }
   
-  /* Add more styling as needed */
+  .house-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
   
+  .house-title {
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .description {
+    color: #555;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  
+  .house-amenities ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .house-amenities li {
+    margin-bottom: 5px;
+    color: #555;
+  }
+  
+  .house-rating .rating {
+    color: #f39c12;
+  }
+  
+  .house-address {
+    color: #666;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .house-reviews li {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+  }
+    
