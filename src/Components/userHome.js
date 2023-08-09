@@ -2,17 +2,25 @@ import React, { useState } from 'react';
 import { Button, Card, Collapse } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/userHome.css';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import ModalComponent from './modal';
 
-const UserHome = ({ userId }) => {
+const UserHome = () => {
+  const { userId } = useParams();
   const [showMyBookings, setShowMyBookings] = useState(false);
   const [showMyHouses, setShowMyHouses] = useState(false);
   const [myBookings, setMyBookings] = useState([]);
   const [myHouses, setMyHouses] = useState([]);
+  const [cancelPopupVisible, setCancelPopupVisible] = useState(false);
+  const [bookingToCancel, setBookingToCancel] = useState(null);
+  const navigate = useNavigate();
 
   const fetchMyBookings = () => {
     axios.get(`http://localhost:8080/api/v1/booking/user/${userId}`)
       .then((response) => {
         setMyBookings(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -43,43 +51,62 @@ const UserHome = ({ userId }) => {
     }
   };
 
-  const handleDeleteBooking = (bookingId) => {
-    axios.delete(`http://localhost:8080/api/v1/booking/user/delete/${bookingId}`)
-      .then(() => {
-        // Refresh the list after deleting a booking
-        fetchMyBookings();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleCancelBooking = (bookingId) => {
+    setBookingToCancel(bookingId);
+    setCancelPopupVisible(true);
+  };
+
+  const handleConfirmCancel = () => {
+    if (bookingToCancel) {
+      axios.delete(`http://localhost:8080/api/v1/booking/user/delete/${bookingToCancel}`)
+        .then(() => {
+          // Refresh booking list after canceling
+          setBookingToCancel(null);
+          setCancelPopupVisible(false);
+          fetchMyBookings();
+        })
+        .catch(error => console.error('Error canceling booking:', error));
+    }
+  };
+
+  const handleCancelPopup = () => {
+    setBookingToCancel(null);
+    setCancelPopupVisible(false);
   };
 
   return (
     <div className="home-container">
-      <h1>Welcome to Our Home Page</h1>
       <Button variant="primary" className='home-buttons' onClick={handleToggleMyBookings}>
         {showMyBookings ? 'Hide My Bookings' : 'View My Bookings'}
       </Button>
       <Collapse in={showMyBookings}>
         <div>
           {myBookings.map((booking) => (
-            <Card key={booking.bookingId} className="booking-card">
+            <Card key={booking[0]} className="booking-card">
               <Card.Body>
-                <Card.Title>{booking.house.name}</Card.Title>
+                <Card.Title>{booking[1].name}</Card.Title>
                 <Card.Text>
-                  Booking Date: {booking.bookingDate}<br />
-                  Start Date: {booking.startDate}<br />
-                  End Date: {booking.endDate}<br />
-                  Rent Amount: {booking.rentAmount}<br />
-                  Status: {booking.status}<br />
+                  Booking Date: {booking[4]}<br />
+                  Start Date: {booking[5]}<br />
+                  End Date: {booking[6]}<br />
+                  Rent Amount: {booking[2]}<br />
+                  Status: {booking[3]}<br />
                   {/* Add more booking details as needed */}
                 </Card.Text>
-                <Button variant="danger" onClick={() => handleDeleteBooking(booking.bookingId)}>
-                  Cancel Booking
-                </Button>
+                { booking[3] === 'ONGOING' &&
+                  <Button variant="danger" onClick={() => handleCancelBooking(booking[0])}>
+                    Cancel Booking
+                  </Button>
+                }
               </Card.Body>
             </Card>
           ))}
+          {cancelPopupVisible && (
+              <div className="popup">
+                <ModalComponent handleClose={handleCancelPopup} show={cancelPopupVisible} 
+                title="Cancel Booking" body="Are you sure?" handleConfirm={handleConfirmCancel}/>
+              </div>
+            )}
         </div>
       </Collapse>
 
@@ -89,16 +116,19 @@ const UserHome = ({ userId }) => {
       <Collapse in={showMyHouses}>
         <div>
           {myHouses.map((house) => (
-            <Card key={house.houseId} className="house-card">
-              <Card.Body>
-                <Card.Title>{house.name}</Card.Title>
-                <Card.Text>
-                  Address: {house.address}<br />
-                  Description: {house.description}<br />
-                  {/* Add more house details as needed */}
-                </Card.Text>
-              </Card.Body>
-            </Card>
+            <div>
+              <Card key={house.houseId} className="house-card">
+                <Card.Body>
+                  <Card.Title>{house.name}</Card.Title>
+                  <Card.Text>
+                    Address: {house.address}<br />
+                    Description: {house.description}<br />
+                    Rating: {house.rating}<br />
+                    <Card.Link href={`/owner/bookings/${house.houseId}`}>View booking history</Card.Link>
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </div>
           ))}
         </div>
       </Collapse>

@@ -9,6 +9,7 @@ import Login from "./Components/login";
 import UserHome from "./Components/userHome";
 import HouseDetails from "./Components/houseDetails";
 import "./App.css";
+import BookingHistory from "./Components/bookingHistory";
 
 
 export default function App() {
@@ -20,9 +21,10 @@ export default function App() {
                 <Route path="about" element={<About />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="login" element={<Login />} />
+                <Route path="user/:userId" element={<UserHome />} />
+                <Route path="owner/bookings/:houseId" element={<BookingHistory />} />
+                <Route path="house/:houseId" element={<HouseDetails />} />
                 <Route path="*" element={<div className="error-page"><h1> 404 Not Found</h1></div>} />
-                <Route path="user" element={<UserHome />} />
-                <Route path="house/:houseId" element={<HouseDetails />} exact/>
                 {/* <Route path="/house/:houseId">element={<HouseDetails />}</Route> */}
             </Routes>
             <Footer />

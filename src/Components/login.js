@@ -20,7 +20,7 @@ const Login = () => {
       .then(function (response) {
         console.log(response);
         console.log("Successfully Logged in ");
-          navigate('/user'); //use this  instead of history.push
+          navigate(`/user/${response.data.id}`); //use this  instead of history.push
       
       })
       .catch(function (error) {
