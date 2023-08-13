@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Card, Collapse } from 'react-bootstrap';
 import axios from 'axios';
 import '../Styles/userHome.css';
@@ -6,8 +6,8 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ModalComponent from './modal';
 
-const UserHome = () => {
-  const { userId } = useParams();
+const UserHome = ({ userId, setUserId }) => {
+  // const { userId, setUserId } = useParams();
   const [showMyBookings, setShowMyBookings] = useState(false);
   const [showMyHouses, setShowMyHouses] = useState(false);
   const [myBookings, setMyBookings] = useState([]);
@@ -15,6 +15,8 @@ const UserHome = () => {
   const [cancelPopupVisible, setCancelPopupVisible] = useState(false);
   const [bookingToCancel, setBookingToCancel] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => { setUserId(userId) },[]);
 
   const fetchMyBookings = () => {
     axios.get(`http://localhost:8080/api/v1/booking/user/${userId}`)

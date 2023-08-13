@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../Styles/login.css';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const Login = ({setIsLoggedIn, setUserId}) => {
 
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
@@ -20,7 +20,9 @@ const Login = () => {
       .then(function (response) {
         console.log(response);
         console.log("Successfully Logged in ");
-          navigate(`/user/${response.data.id}`); //use this  instead of history.push
+        setIsLoggedIn(true);
+        setUserId(response.data.id);
+        navigate(`/user/${response.data.id}`); //use this  instead of history.push
       
       })
       .catch(function (error) {

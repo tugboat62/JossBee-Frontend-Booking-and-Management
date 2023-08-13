@@ -3,8 +3,7 @@ import DropdownMenu from './dropdownMenu';
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-export default function Navbar() {
-
+export default function Navbar({ isLoggedIn, setIsLoggedIn, userId, setUserId }) {
 
     return (
         <header className="navbar navbar-expand-lg navbar-light bg-light">
@@ -26,20 +25,18 @@ export default function Navbar() {
                     <li className="nav-item">
                     <Link className="nav-link" to='/'>JossBee Your Home</Link>
                     </li>   
-                    <li className="nav-item dropdown">
-                        <DropdownMenu />      
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to='/login'>Sign In</Link>
-                    </li>
-                    {/* <li>
-                        <div className="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                            <Link className="dropdown-item" to='/'>Profile</Link>
-                            <Link className="dropdown-item" to='/'>Settings</Link>
-                            <div className="dropdown-divider"></div>
-                            <Link className="dropdown-item" to='/'>Logout</Link>
-                        </div>
-                    </li> */}
+                    {
+                        isLoggedIn &&
+                        <li className="nav-item dropdown">
+                            <DropdownMenu setIsLoggedIn={setIsLoggedIn} userId={userId} setUserId={setUserId}/>      
+                        </li>
+                    }
+                    {
+                        !isLoggedIn &&
+                        <li className="nav-item">
+                            <Link className="nav-link" to='/login'>Sign In</Link>
+                        </li>
+                    }
                 </ul>
             </div>
         </header>
