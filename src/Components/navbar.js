@@ -1,10 +1,11 @@
 import React from 'react';
 import DropdownMenu from './dropdownMenu';
 import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { useAuth } from './auth';
 
-export default function Navbar({ isLoggedIn, setIsLoggedIn, userId, setUserId }) {
+export default function Navbar({ setIsLoggedIn, userId, setUserId }) {
 
+    const auth = useAuth();
     return (
         <header className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container">
@@ -26,13 +27,13 @@ export default function Navbar({ isLoggedIn, setIsLoggedIn, userId, setUserId })
                     <Link className="nav-link" to='/'>JossBee Your Home</Link>
                     </li>   
                     {
-                        isLoggedIn &&
+                        auth.user &&
                         <li className="nav-item dropdown">
-                            <DropdownMenu setIsLoggedIn={setIsLoggedIn} userId={userId} setUserId={setUserId}/>      
+                            <DropdownMenu setIsLoggedIn={setIsLoggedIn}/>      
                         </li>
                     }
                     {
-                        !isLoggedIn &&
+                        !auth.user &&
                         <li className="nav-item">
                             <Link className="nav-link" to='/login'>Sign In</Link>
                         </li>

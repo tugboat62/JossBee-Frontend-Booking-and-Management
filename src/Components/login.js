@@ -4,15 +4,18 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../Styles/login.css';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from './auth';
 
-const Login = ({setIsLoggedIn, setUserId}) => {
-
+const Login = ({setIsLoggedIn}) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  
+  const auth = useAuth(); 
+
+
   const handleSubmit = (e) => {
+
     e.preventDefault();
     setError('');
 
@@ -20,9 +23,9 @@ const Login = ({setIsLoggedIn, setUserId}) => {
       .then(function (response) {
         console.log(response);
         console.log("Successfully Logged in ");
+        auth.login(response.data.id);
         setIsLoggedIn(true);
-        setUserId(response.data.id);
-        navigate(`/user/${response.data.id}`); //use this  instead of history.push
+        navigate(`/user`); //use this  instead of history.push
       
       })
       .catch(function (error) {

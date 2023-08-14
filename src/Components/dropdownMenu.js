@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+import { useAuth } from './auth';
 
-const DropdownMenu = ({setIsLoggedIn, userId, setUserId}) => {
+const DropdownMenu = ({setIsLoggedIn}) => {
+  const auth = useAuth();
   const [selectedOption, setSelectedOption] = useState(null);
 
-  const location = useLocation();
   const navigate = useNavigate();
 
   const handleOptionSelect = (option) => {
-    if (option === 'login') {
+    if (option === 'logout') {
       setIsLoggedIn(false);
-      setUserId(null);
-      navigate('/login');
+      auth.logout();
+      navigate('/');
     } 
     else {
       setSelectedOption(option);
-      navigate(`user/${userId}/${option}`);
+      navigate(`user/${option}`);
     }
   };
 
@@ -33,7 +33,7 @@ const DropdownMenu = ({setIsLoggedIn, userId, setUserId}) => {
         <Dropdown.Item onClick={() => handleOptionSelect('settings')}>
           Settings
         </Dropdown.Item>
-        <Dropdown.Item onClick={() => handleOptionSelect('login')}>
+        <Dropdown.Item onClick={() => handleOptionSelect('logout')}>
           Logout
         </Dropdown.Item>
       </DropdownButton>
