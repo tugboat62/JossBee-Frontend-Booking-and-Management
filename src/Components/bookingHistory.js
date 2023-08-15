@@ -4,8 +4,10 @@ import '../Styles/bookingHistory.css';
 import { useParams } from 'react-router-dom';
 import ModalComponent from './modal';
 import { Card, Button } from 'react-bootstrap';
+import { useAuth } from './auth'; // Import useAuth hook from auth.js
 
 const BookingHistory = () => {
+  const auth = useAuth();
   const { houseId } = useParams();
   const [bookings, setBookings] = useState([]);
   const [cancelPopupVisible, setCancelPopupVisible] = useState(false);
