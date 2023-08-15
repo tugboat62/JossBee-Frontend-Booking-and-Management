@@ -29,7 +29,7 @@ export default function App() {
                     <Route path="contact" element={<Contact />} />
                     <Route path="login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
                     <Route path="user" element={<RequiureAuth><UserHome /></RequiureAuth>} />
-                    <Route path="owner/bookings/:houseId" element={<RequiureAuth><BookingHistory /></RequiureAuth>} />
+                    <Route path="user/bookings/:houseId" element={<RequiureAuth><BookingHistory /></RequiureAuth>} />
                     <Route path="house/:houseId" element={<HouseDetails />} />
                     <Route path="user/notifications" element={<RequiureAuth><Notifications /></RequiureAuth>} />
                     <Route path="*" element={<div className="error-page"><h1> 404 Not Found</h1></div>} />

@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../Styles/userHome.css';
 import ModalComponent from './modal';
 import { useAuth } from './auth'; // Import useAuth hook from auth.js
+import { useNavigate } from 'react-router-dom';
 
 const UserHome = () => {
   const auth = useAuth();
@@ -13,6 +14,7 @@ const UserHome = () => {
   const [myHouses, setMyHouses] = useState([]);
   const [cancelPopupVisible, setCancelPopupVisible] = useState(false);
   const [bookingToCancel, setBookingToCancel] = useState(null);
+  const navigate = useNavigate();
 
   const fetchMyBookings = () => {
     axios.get(`http://localhost:8080/api/v1/booking/user/${auth.user}`)
@@ -72,6 +74,11 @@ const UserHome = () => {
     setCancelPopupVisible(false);
   };
 
+  const handleHouseDetails = (event) => {
+    const item = event.target.getAttribute('item');
+    navigate(`bookings/${item}`);
+  };
+
   return (
     <div className="home-container">
       <Button variant="primary" className='home-buttons' onClick={handleToggleMyBookings}>
@@ -122,7 +129,7 @@ const UserHome = () => {
                     Address: {house.address}<br />
                     Description: {house.description}<br />
                     Rating: {house.rating}<br />
-                    <Card.Link href={`/owner/bookings/${house.houseId}`}>View booking history</Card.Link>
+                    <Button variant="secondary" item={house.houseId} onClick={handleHouseDetails}>View Details</Button>
                   </Card.Text>
                 </Card.Body>
               </Card>
