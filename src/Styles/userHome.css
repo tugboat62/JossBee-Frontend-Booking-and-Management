@@ -20,3 +20,19 @@
     margin-bottom: 10px;
   }
   
+  /* Add this to your existing CSS or a separate file */
+.profile-dropdown {
+  /* Your existing styles */
+  position: relative;
+}
+
+.profile-icon,
+.notification-icon {
+  font-size: 24px;
+  cursor: pointer;
+  margin-right: 15px;
+}
+
+.notification-icon {
+  margin-right: 0; /* Adjust spacing if needed */
+}

@@ -1,11 +1,11 @@
 .notifications-container {
-    max-width: 500px;
-    margin: 0 auto;
+    min-height: 80vh;
+    /* margin: 0 auto;
     padding: 20px;
     background-color: #f7f7f7;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
   }
   
   .notifications-list {

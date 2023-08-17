@@ -36,6 +36,14 @@
     color: #fff;
   }
   
-  #dropdown-basic-button {
-    background-color: #f8f8f8;
+
+  .profile-dropdown {
+    display: flex; /* Use flexbox to align items horizontally */
+    align-items: center; /* Center items vertically */
   }
+  
+  .profile-dropdown .icon-button {
+    margin-right: 20px; /* Add some spacing between icons */
+    display: inline-block;
+  }
+  

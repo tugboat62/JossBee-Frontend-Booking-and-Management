@@ -4,6 +4,7 @@ import '../Styles/notifications.css';
 import { Button, Card } from 'react-bootstrap';
 import ModalComponent from './modal';
 import { useAuth } from './auth'; // Import useAuth hook from auth.js
+import '../Styles/notifications.css';
 
 const Notifications = () => {
   const auth = useAuth();
@@ -49,7 +50,7 @@ const Notifications = () => {
   };
 
   return (
-    <div>
+    <div className='notifications-container'>
       <ul>
         {notifications.map((notification, index) => (
           <Card key={index} className="notification-card">

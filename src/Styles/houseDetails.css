@@ -1,6 +1,23 @@
 /* HouseDetails.css */
 
   /* Add more styling as needed */
+
+  .house-page {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+  }
+  
+  .booking-card {
+    width: 30%; /* Adjust the width as needed */
+    padding: 90px 30px;
+  }
+  
+  .house-details {
+    width: 65%; /* Adjust the width as needed */
+  }
+
   .house-details {
     min-height: 120vh;
     max-width: 800px;

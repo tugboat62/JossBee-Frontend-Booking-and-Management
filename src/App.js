@@ -14,6 +14,7 @@ import { useState } from "react";
 import Notifications from "./Components/notifications";
 import { RequiureAuth } from "./Components/requireAuth";
 import { AuthProvider } from "./Components/auth";
+import BookingDetails from "./Components/bookingDetails";
 
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
                     <Route path="user" element={<RequiureAuth><UserHome /></RequiureAuth>} />
                     <Route path="user/bookings/:houseId" element={<RequiureAuth><BookingHistory /></RequiureAuth>} />
                     <Route path="house/:houseId" element={<HouseDetails />} />
+                    <Route path="house/checkout/:houseId" element={<RequiureAuth><BookingDetails /></RequiureAuth>} />
                     <Route path="user/notifications" element={<RequiureAuth><Notifications /></RequiureAuth>} />
                     <Route path="*" element={<div className="error-page"><h1> 404 Not Found</h1></div>} />
                     {/* <Route path="/house/:houseId">element={<HouseDetails />}</Route> */}
