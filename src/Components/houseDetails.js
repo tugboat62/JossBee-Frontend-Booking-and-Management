@@ -41,7 +41,7 @@ const HouseDetails = () => {
   return (
     <div className="house-page">
       <div className="booking-card">
-        <BookingCard houseId={house.houseId}/>
+        <BookingCard houseId={house.houseId} capacity={house.capacity}/>
       </div>
       <div className="house-details">
         <div className="house-top">

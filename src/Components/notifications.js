@@ -6,7 +6,7 @@ import ModalComponent from './modal';
 import { useAuth } from './auth'; // Import useAuth hook from auth.js
 import '../Styles/notifications.css';
 
-const Notifications = () => {
+const Notifications = ({newNotification}) => {
   const auth = useAuth();
   const [notifications, setNotifications] = useState([]);
   const [notificationToDelete, setNotificationToDelete] = useState(null);

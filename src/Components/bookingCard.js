@@ -6,18 +6,26 @@ import "../Styles/bookingCard.css";
 import { useAuth } from "./auth";
 import { useNavigate } from "react-router-dom";
 
-const BookingCard = ({ houseId }) => {
+const BookingCard = ({ houseId, capacity }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [maxEndDate, setMaxEndDate] = useState(""); // [1
   const [numGuests, setNumGuests] = useState(1); // Default value
   const navigate = useNavigate();
   const auth = useAuth();
 
   const [showError, setShowError] = useState(false);
 
-  const handleStartDateChange = (e) => {
+  const maxBookingDate = new Date();
+  maxBookingDate.setDate(maxBookingDate.getDate() + 3);
+
+  const handleStartDateChange = (e) => { 
+    const maxEnd = new Date(e.target.value);
+    maxEnd.setDate(maxEnd.getDate() + 3);
+    console.log(maxEnd);
+    setMaxEndDate(maxEnd.toISOString().split("T")[0]); // [1
+    setEndDate(""); // Reset end date if it's out of range
     setStartDate(e.target.value);
-    console.log(startDate);
   };
 
   const handleEndDateChange = (e) => {
@@ -47,7 +55,9 @@ const BookingCard = ({ houseId }) => {
   return (
     <div className="booking-form">
       <h2>Book this House</h2>
-      {showError && <Alert variant="danger">Please fill in all fields correctly.</Alert>}
+      {showError && (
+        <Alert variant="danger">Please fill in all fields correctly.</Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="startDate">
           <Form.Label>Start Date</Form.Label>
@@ -55,6 +65,8 @@ const BookingCard = ({ houseId }) => {
             type="date"
             value={startDate}
             onChange={handleStartDateChange}
+            min={new Date().toISOString().split("T")[0]} // Restrict to current date and future dates
+            max={maxBookingDate.toISOString().split("T")[0]} // Set maximum booking duration
             required
           />
         </Form.Group>
@@ -65,6 +77,10 @@ const BookingCard = ({ houseId }) => {
             type="date"
             value={endDate}
             onChange={handleEndDateChange}
+            min={startDate} // Minimum date is the check-in date
+            max={
+              maxEndDate // Set maximum end date based on start date
+            }
             required
           />
         </Form.Group>
@@ -76,6 +92,7 @@ const BookingCard = ({ houseId }) => {
             value={numGuests}
             onChange={handleNumGuestsChange}
             min={1}
+            max={capacity}
             required
           />
         </Form.Group>

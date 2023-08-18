@@ -9,6 +9,7 @@
   }
 
 .booking-details-page {
+    min-height: 80vh;
     display: flex;
     justify-content: space-between;
     margin-top: 40px;
@@ -61,14 +62,6 @@
     background-color: #0056b3;
   }
   
-  .booking-form {
-    flex: 1;
-    margin-right: 20px; /* Add spacing between the two cards */
-  }
-  
-  .house-details-card {
-    flex: 1;
-  }
 
   .form-control {
     border: 1px solid #ccc;
