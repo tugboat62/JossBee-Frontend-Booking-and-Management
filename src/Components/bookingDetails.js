@@ -6,15 +6,18 @@ import HouseCard from "./houseCard";
 import "../Styles/bookingDetails.css"; // Import your custom CSS for styling
 import axios from "axios";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 
 const BookingDetails = () => {
+  const location = useLocation();
   const [creditCard, setCreditCard] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
   const [agreeToRules, setAgreeToRules] = useState(false);
   const [house, setHouse] = useState(null);
   const { houseId } = useParams();
+
+  const [showError, setShowError] = useState(false);
 
   useEffect(() => {
     // Fetch house details from the backend API
@@ -31,6 +34,23 @@ const BookingDetails = () => {
 
   const handleCreditCardChange = (e) => {
     setCreditCard(e.target.value);
+  };
+
+  const handleStartDateChange = (e) => {
+    const maxEnd = new Date(e.target.value);
+    maxEnd.setDate(maxEnd.getDate() + 3);
+    console.log(maxEnd);
+    location.state.setMaxEndDate(maxEnd.toISOString().split("T")[0]); // [1
+    location.state.setEndDate(""); // Reset end date if it's out of range
+    location.state.setStartDate(e.target.value);
+  };
+
+  const handleEndDateChange = (e) => {
+    location.state.setEndDate(e.target.value);
+  };
+
+  const handleNumGuestsChange = (e) => {
+    location.state.setNumGuests(e.target.value);
   };
 
   const handlePhoneNumberChange = (e) => {
@@ -61,6 +81,47 @@ const BookingDetails = () => {
       <div className="booking-form">
         <h2>Confirm and Pay</h2>
         <Form onSubmit={handleConfirmAndPay}>
+        <Form.Group controlId="checkInDate">
+          <Form.Label>Check-in Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={location.state.startDate}
+            onChange={handleStartDateChange}
+            min={new Date().toISOString().split('T')[0]}
+            max={location.state.maxBookingDate}
+            required
+          />
+        </Form.Group>
+
+        {/* Check-out Date */}
+        <Form.Group controlId="checkOutDate">
+          <Form.Label>Check-out Date</Form.Label>
+          <Form.Control
+            type="date"
+            value={location.state.endDate}
+            onChange={handleEndDateChange}
+            min={location.state.startDate}
+            max={
+              location.state.maxEndDate
+            }
+            required
+          />
+        </Form.Group>
+
+        {/* Guest Number */}
+        <Form.Group controlId="numGuests">
+          <Form.Label>Number of Guests</Form.Label>
+          <Form.Control
+            type="number"
+            value={location.state.numGuests}
+            onChange={handleNumGuestsChange}
+            min={1}
+            max={house.capacity}
+            required
+          />
+        </Form.Group>
+
+
           {/* Credit Card Details */}
           <Form.Group controlId="creditCard">
             <Form.Label>Credit Card Number</Form.Label>

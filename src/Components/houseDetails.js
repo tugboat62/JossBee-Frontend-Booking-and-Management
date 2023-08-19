@@ -4,6 +4,7 @@ import axios from "axios";
 import { FaStar } from "react-icons/fa";
 import "../Styles/houseDetails.css";
 import BookingCard from "./bookingCard";
+import { useAuth } from "./auth";
 
 const HouseDetails = () => {
   const { houseId } = useParams();
@@ -41,7 +42,7 @@ const HouseDetails = () => {
   return (
     <div className="house-page">
       <div className="booking-card">
-        <BookingCard houseId={house.houseId} capacity={house.capacity}/>
+        <BookingCard houseId={house.houseId} capacity={house.capacity} price={house.price} />
       </div>
       <div className="house-details">
         <div className="house-top">
@@ -50,6 +51,10 @@ const HouseDetails = () => {
         </div>
         <p>{house.description}</p>
 
+        <div className="house-price">
+          <h2>Price</h2>
+          <p>${house.price} per night</p>
+        </div>
         <div className="house-amenities">
           <h2>Amenities</h2>
           <ul>

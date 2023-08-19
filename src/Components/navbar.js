@@ -30,14 +30,14 @@ export default function Navbar({ setIsLoggedIn, userId, setUserId }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/profile/${auth.user}/newNotification`)
+      .get(`http://localhost:8080/api/v1/profile/${auth.user}/newnotification`)
       .then((response) => {
         setNotifications(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  });
+  }, []);
 
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-light">

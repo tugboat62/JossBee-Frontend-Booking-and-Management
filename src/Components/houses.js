@@ -26,7 +26,6 @@ const Home = () => {
 
   return (
     <div className="home">
-      <h1>Get Your Best Deal Now From Us</h1>
       <div className="house-cards">
         {houses.map((house) => (
           <div key={house.houseId} onClick={() => handleHouseClick(house.houseId)} className="house-card">

@@ -14,13 +14,13 @@ const Footer = () => {
               <li><Link to="/contact">Contact</Link></li>
             </ul>
           </div>
-          <div className="footer-social">
+          {/* <div className="footer-social">
             <tr>
               <td><Link to="/"><i className="fab fa-facebook"></i></Link></td>
               <td><Link to="/"><i className="fab fa-twitter"></i></Link></td>
               <td><Link to="/"><i className="fab fa-instagram"></i></Link></td>
             </tr>
-          </div>
+          </div> */}
         </div>
         <div className="footer-bottom">
           <p>&copy; 2023 JossBee. All rights reserved.</p>
