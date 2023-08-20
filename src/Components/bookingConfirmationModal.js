@@ -16,7 +16,7 @@ const BookingConfirmationModal = ({ show, handleClose, totalAmount, onConfirm })
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={onConfirm}>
+        <Button variant="success" onClick={onConfirm}>
           Confirm
         </Button>
       </Modal.Footer>

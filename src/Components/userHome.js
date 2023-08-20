@@ -94,11 +94,11 @@ const UserHome = () => {
                   Booking Date: {booking[4]}<br />
                   Start Date: {booking[5]}<br />
                   End Date: {booking[6]}<br />
-                  Rent Amount: {booking[2]}<br />
-                  Status: {booking[3]}<br />
+                  Rent Amount: {booking[3]}$<br />
+                  Status: {booking[2]}<br />
                   {/* Add more booking details as needed */}
                 </Card.Text>
-                { booking[3] === 'ONGOING' &&
+                { booking[2] === 'ONGOING' &&
                   <Button variant="danger" onClick={() => handleCancelBooking(booking[0])}>
                     Cancel Booking
                   </Button>

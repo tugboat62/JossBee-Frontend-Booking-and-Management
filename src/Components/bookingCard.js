@@ -7,16 +7,24 @@ import axios from "axios";
 import "../Styles/bookingDetails.css"; // Import your custom CSS for styling
 import { useNavigate } from "react-router-dom";
 import BookingConfirmationModal from "./bookingConfirmationModal";
+import { useAuth } from "./auth";
+import BookingSuccessModal from "./bookingSuccessModal";
+import BookingErrorModal from "./bookingErrorModal";
 
-const BookingCard = ({ houseId, capacity, price }) => {
+const BookingCard = ({ houseId, capacity, price, house }) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [maxEndDate, setMaxEndDate] = useState(""); // [1
-  const [numGuests, setNumGuests] = useState(1); // Default value
+  const [maxEndDate, setMaxEndDate] = useState("");
+  const [numGuests, setNumGuests] = useState(1);
+  const [rentAmount, setRentAmount] = useState(0);
   const [creditCard, setCreditCard] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [billingAddress, setBillingAddress] = useState("");
+  const [errorMessage, setErrorBookingMessage] = useState("");
   const [agreeToRules, setAgreeToRules] = useState(false);
+  const auth = useAuth();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const navigate = useNavigate();
 
   const [showError, setShowError] = useState(false);
@@ -25,8 +33,13 @@ const BookingCard = ({ houseId, capacity, price }) => {
   maxBookingDate.setDate(maxBookingDate.getDate() + 3);
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const handleShowModal = () => {
-    setShowConfirmationModal(true);
+  const handleShowModal = (e) => {
+    e.preventDefault();
+    if (!auth.user) {
+      navigate("/login");
+    } else {
+      setShowConfirmationModal(true);
+    }
   };
   const handleCloseModal = () => setShowConfirmationModal(false);
 
@@ -64,24 +77,88 @@ const BookingCard = ({ houseId, capacity, price }) => {
     setCreditCard(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !startDate ||
-      !endDate ||
-      numGuests < 1 ||
-      !creditCard ||
-      !phoneNumber ||
-      !billingAddress ||
-      !agreeToRules
-    ) {
-      setShowError(true);
-    } else {
-      setShowError(false);
-      // Implement your booking submission logic here
+    try {
+      if (
+        !startDate ||
+        !endDate ||
+        numGuests < 1 ||
+        !creditCard ||
+        !phoneNumber ||
+        !billingAddress ||
+        !agreeToRules
+      ) {
+        setErrorBookingMessage("Please fill in all fields correctly");
+        setShowError(true);
+      } else {
+        const alreadyBooked = await axios.get(
+          `http://localhost:8080/api/v1/booking/user/checkbooking`,
+          {
+            params: {
+              houseId: houseId,
+              startDate: startDate,
+              endDate: endDate,
+            },
+          }
+        );
+        console.log(alreadyBooked.data);
+        if (alreadyBooked.data) {
+          setErrorBookingMessage("House is already booked for this duration");
+          setShowErrorModal(true);
+          setShowConfirmationModal(false);
+        } else {
+          setShowError(false);
+          handleCloseModal();
+          setRentAmount(
+            startDate === endDate
+              ? price * numGuests
+              : price * numGuests * daysBetween(startDate, endDate)
+          );
 
-      console.log("Booking submitted");
-      handleCloseModal();
+          const res = await axios.get(
+            `http://localhost:8080/api/v1/profile/${auth.user}`
+          );
+          const user = res.data;
+          console.log(user);
+          console.log(house);
+          console.log(rentAmount);
+          console.log(startDate);
+          console.log(endDate);
+          console.log(new Date().toISOString().split("T")[0]);
+          console.log(numGuests);
+
+          const response = await axios.post(
+            "http://localhost:8080/api/v1/booking/user/create",
+            {
+              house: house,
+              user: user,
+              rentAmount: rentAmount,
+              payment: {
+                amount: rentAmount,
+                paymentMethod: "credit card",
+              },
+              review: null,
+              bookingDate: new Date().toISOString().split("T")[0],
+              startDate: startDate,
+              endDate: endDate,
+              guests: numGuests,
+              status: 0,
+            }
+          );
+
+          if (response.status === 200) {
+            setShowSuccessModal(true);
+          } else {
+            setErrorBookingMessage("Bad request or system error");
+            setShowErrorModal(true); // Show error modal for non-200 status
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error submitting booking:", error);
+      setErrorBookingMessage("System couldnot process your booking");
+      setShowErrorModal(true); // Show error modal for errors
     }
   };
 
@@ -202,6 +279,17 @@ const BookingCard = ({ houseId, capacity, price }) => {
               : price * numGuests * daysBetween(startDate, endDate)
           }
           onConfirm={handleSubmit}
+        />
+
+        <BookingSuccessModal
+          show={showSuccessModal}
+          handleClose={() => setShowSuccessModal(false)}
+        />
+
+        <BookingErrorModal
+          show={showErrorModal}
+          message={errorMessage}
+          handleClose={() => setShowErrorModal(false)}
         />
       </Form>
     </div>

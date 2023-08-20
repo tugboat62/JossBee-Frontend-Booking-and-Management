@@ -3,7 +3,6 @@ import { Modal, Button } from 'react-bootstrap';
 
 export default function ModalComponent(props) {
     const { show, handleClose, handleConfirm, title, body } = props;
-    console.log(props);
     
     return (
         <Modal show={show} onHide={handleClose}>

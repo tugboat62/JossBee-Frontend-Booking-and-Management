@@ -6,10 +6,11 @@ import { Badge, IconButton, InputBase } from "@mui/material";
 import { Notifications, Search, FilterList } from "@mui/icons-material";
 import "../Styles/searchbox.css";
 import axios from "axios";
+import { useState } from "react";
 
 export default function Navbar({ setIsLoggedIn, userId, setUserId }) {
   const auth = useAuth();
-  const [notifications, setNotifications] = React.useState(false);
+  const [notifications, setNotifications] = useState(false);
   const navigate = useNavigate();
 
   const goToNotifications = async () => {
@@ -30,22 +31,22 @@ export default function Navbar({ setIsLoggedIn, userId, setUserId }) {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/api/v1/profile/${auth.user}/newnotification`)
+      .get(`http://localhost:8080/api/v1/profile/${auth.user}/newNotification`)
       .then((response) => {
         setNotifications(response.data);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  });
 
   return (
     <header className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
         <Link className="navbar-brand" to="/">
           <img
-            src="../Images/JossBee.png"
-            alt=""
+            src="../Images/jossBee3.png"
+            alt="logo"
             width="30"
             height="30"
             className="d-inline-block align-text-top"

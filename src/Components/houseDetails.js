@@ -8,7 +8,6 @@ import { useAuth } from "./auth";
 
 const HouseDetails = () => {
   const { houseId } = useParams();
-  console.log(houseId);
   const [house, setHouse] = useState(null);
   const [reviews, setReviews] = useState([]);
 
@@ -42,7 +41,7 @@ const HouseDetails = () => {
   return (
     <div className="house-page">
       <div className="booking-card">
-        <BookingCard houseId={house.houseId} capacity={house.capacity} price={house.price} />
+        <BookingCard houseId={house.houseId} capacity={house.capacity} price={house.price} house={house} />
       </div>
       <div className="house-details">
         <div className="house-top">
