@@ -1,16 +1,13 @@
 /* Home.css */
 
 .home-container {
+  display: flex;
   min-height: 100vh;
     padding: 20px;
   }
   
   /* Add margin to the buttons */
-  .home-buttons {
-    display: flex;
-    padding-right: 10px; /* Gap between the buttons */
-    margin-bottom: 20px; /* Space between buttons and the content below */
-  }
+
   
   .booking-card {
     margin-bottom: 10px;
@@ -35,4 +32,34 @@
 
 .notification-icon {
   margin-right: 0; /* Adjust spacing if needed */
+}
+
+.collapse-container {
+  min-width: 120vh;
+ /* Adjust the max-width as needed */
+}
+
+.home-buttons-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* Add some top margin for spacing */
+}
+
+.home-buttons {
+  width: 180px;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.home-buttons:hover {
+  background-color: #1565c0;
+  transform: scale(1.05);
 }

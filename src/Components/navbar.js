@@ -45,10 +45,10 @@ export default function Navbar({ setIsLoggedIn, userId, setUserId }) {
       <div className="container">
         <Link className="navbar-brand" to="/">
           <img
-            src="../Images/jossBee3.png"
+            src={require('../Images/jossBee3.png')}
             alt="logo"
-            width="30"
-            height="30"
+            width="90"
+            height="90"
             className="d-inline-block align-text-top"
           />
         </Link>
