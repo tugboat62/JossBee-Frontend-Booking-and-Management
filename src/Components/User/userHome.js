@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Button, Card, Collapse } from "react-bootstrap";
 import axios from "axios";
-import "../Styles/userHome.css";
-import ModalComponent from "./modal";
-import { useAuth } from "./auth"; // Import useAuth hook from auth.js
+import "../../Styles/userHome.css";
+import ModalComponent from "../Modals/modal";
+import { useAuth } from "../auth"; // Import useAuth hook from auth.js
 import { useNavigate } from "react-router-dom";
 import Sidebar from "./sidebar";
 

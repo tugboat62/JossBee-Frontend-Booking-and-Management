@@ -2,14 +2,14 @@
 
 import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
-import "../Styles/bookingCard.css";
+import "../../Styles/bookingCard.css";
 import axios from "axios";
-import "../Styles/bookingDetails.css"; // Import your custom CSS for styling
+import "../../Styles/bookingDetails.css"; // Import your custom CSS for styling
 import { useNavigate } from "react-router-dom";
-import BookingConfirmationModal from "./bookingConfirmationModal";
-import { useAuth } from "./auth";
-import BookingSuccessModal from "./bookingSuccessModal";
-import BookingErrorModal from "./bookingErrorModal";
+import BookingConfirmationModal from "../Modals/bookingConfirmationModal";
+import { useAuth } from "../auth";
+import BookingSuccessModal from "../Modals/bookingSuccessModal";
+import BookingErrorModal from "../Modals/bookingErrorModal";
 
 const BookingCard = ({ houseId, capacity, price, house }) => {
   const [startDate, setStartDate] = useState("");

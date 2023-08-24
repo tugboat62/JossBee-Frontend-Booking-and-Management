@@ -4,17 +4,17 @@ import Footer from "./Components/footer";
 import About from "./Components/about";
 import Contact from "./Components/contact";
 import {Routes, Route} from "react-router-dom";
-import Home from "./Components/houses";
+import Home from "./Components/Houses/houses";
 import Login from "./Components/login";
-import UserHome from "./Components/userHome";
-import HouseDetails from "./Components/houseDetails";
+import UserHome from "./Components/User/userHome";
+import HouseDetails from "./Components/Houses/houseDetails";
 import "./App.css";
-import BookingHistory from "./Components/bookingHistory";
+import BookingHistory from "./Components/Booking/bookingHistory";
 import { useState } from "react";
-import Notifications from "./Components/notifications";
+import Notifications from "./Components/User/notifications";
 import { RequiureAuth } from "./Components/requireAuth";
 import { AuthProvider } from "./Components/auth";
-import BookingDetails from "./Components/bookingDetails";
+
 
 
 export default function App() {

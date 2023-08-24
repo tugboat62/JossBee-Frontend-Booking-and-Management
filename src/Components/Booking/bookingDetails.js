@@ -2,8 +2,8 @@
 
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import HouseCard from "./houseCard";
-import "../Styles/bookingDetails.css"; // Import your custom CSS for styling
+import HouseCard from "../Houses/houseCard";
+import "../../Styles/bookingDetails.css"; // Import your custom CSS for styling
 import axios from "axios";
 import { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";

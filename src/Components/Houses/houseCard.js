@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import '../Styles/houseCard.css';
+import '../../Styles/houseCard.css';
 
 const HouseCard = ({ house }) => {
   return (

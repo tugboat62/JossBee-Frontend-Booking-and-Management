@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Typography } from '@mui/material';
-import '../Styles/bookingSuccessModal.css';
+import '../../Styles/bookingSuccessModal.css';
 
 const BookingSuccessModal = ({ show, handleClose }) => {
   return (

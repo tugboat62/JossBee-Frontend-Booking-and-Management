@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Styles/bookingHistory.css';
+import '../../Styles/bookingHistory.css';
 import { useParams } from 'react-router-dom';
-import ModalComponent from './modal';
+import ModalComponent from '../Modals/modal';
 import { Card, Button } from 'react-bootstrap';
-import { useAuth } from './auth'; // Import useAuth hook from auth.js
+import { useAuth } from '../auth'; // Import useAuth hook from auth.js
 
 const BookingHistory = () => {
   const auth = useAuth();

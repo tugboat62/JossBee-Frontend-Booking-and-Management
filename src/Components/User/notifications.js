@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../Styles/notifications.css';
+import '../../Styles/notifications.css';
 import { Button, Card } from 'react-bootstrap';
-import ModalComponent from './modal';
-import { useAuth } from './auth'; // Import useAuth hook from auth.js
-import '../Styles/notifications.css';
+import ModalComponent from '../Modals/modal';
+import { useAuth } from '../auth'; // Import useAuth hook from auth.js
+import '../../Styles/notifications.css';
 
 const Notifications = ({newNotification}) => {
   const auth = useAuth();
@@ -19,8 +19,7 @@ const Notifications = ({newNotification}) => {
   const fetchNotifications = async () => {
     try {
       const response = await axios.get(`http://localhost:8080/api/v1/profile/${auth.user}/notifications`);
-      const notificationsData = response.data[0] || []; // Assuming notifications are in the first list
-      setNotifications(notificationsData);
+      setNotifications(response.data);
     } catch (error) {
       console.error('Error fetching notifications:', error);
     }
@@ -52,14 +51,14 @@ const Notifications = ({newNotification}) => {
   return (
     <div className='notifications-container'>
       <ul>
-        {notifications.map((notification, index) => (
-          <Card key={index} className="notification-card">
+        {notifications.map((notification) => (
+          <Card key={notification.notificationId} className="notification-card">
             <Card.Body>
                 <Card.Title> </Card.Title>
                 <Card.Text>
-                {notification}
+                {notification.message}
                 </Card.Text>
-                <Button variant="danger" onClick={() => handleDeleteNotification(index)}>
+                <Button variant="danger" onClick={() => handleDeleteNotification(notification.notificationId)}>
                 Delete
                 </Button>       
             </Card.Body>

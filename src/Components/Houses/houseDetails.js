@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
-import "../Styles/houseDetails.css";
-import BookingCard from "./bookingCard";
-import { useAuth } from "./auth";
+import "../../Styles/houseDetails.css";
+import BookingCard from "../Booking/bookingCard";
+import { useAuth } from "../auth";
 
 const HouseDetails = () => {
   const { houseId } = useParams();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button, Typography } from '@mui/material';
-import '../Styles/bookingErrorModal.css';
+import '../../Styles/bookingErrorModal.css';
 
 const BookingErrorModal = ({ show, handleClose, message }) => {
     return (

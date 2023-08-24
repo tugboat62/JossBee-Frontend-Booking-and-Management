@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import '../Styles/bookingConfirmationModal.css';
+import '../../Styles/bookingConfirmationModal.css';
 
 const BookingConfirmationModal = ({ show, handleClose, totalAmount, onConfirm }) => {
   return (

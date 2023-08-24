@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './auth';
+import { useAuth } from '../auth';
 import { IconButton, Menu, MenuItem } from '@mui/material';
 import { Person } from '@mui/icons-material';
 
