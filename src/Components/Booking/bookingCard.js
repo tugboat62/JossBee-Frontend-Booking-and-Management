@@ -140,7 +140,6 @@ const BookingCard = ({ houseId, capacity, price, house }) => {
               },
               review: null,
               bookingDate: new Date().toISOString().split("T")[0],
-              startDate: startDate,
               endDate: endDate,
               guests: numGuests,
               status: 0,
